@@ -15,7 +15,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { login, postUserNew } = require('./controllers/users');
 
-const PORT = 3013;
+const PORT = 3001;
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
