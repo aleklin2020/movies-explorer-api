@@ -1,6 +1,6 @@
 # Проект Movies бэкенд
 
-## [Ссылка на домен](https://api.pictures-host.nomoredomains.rocks/)
+## [Ссылка на домен](http://api.movies.lin.nomoredomains.rocks)
 ## Публичный Ip адрес # 51.250.21.113
 
 ## Директории
