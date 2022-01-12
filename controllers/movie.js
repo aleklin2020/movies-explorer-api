@@ -6,7 +6,7 @@ const NotFoundError = require('../erors/not-found-err');
 // Возврат всех фильмов
 module.exports.getMovie = (req, res, next) => {
   Movie.find({})
-    .then((Movies) => { return res.send(Movies); })
+    .then((Movies) => res.send(Movies))
     .catch((next));
 };
 // создание фильма
@@ -34,19 +34,21 @@ module.exports.postMovie = (req, res, next) => {
     thumbnail,
     movieId,
   })
-    .then((movie) => { return res.send(movie); })
+    .then((movie) => res.send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new IncorrectDataError('Переданы некорректные данные при добавление фильма'));
+      } else {
+        next(err);
       }
-      next(err);
-    });
+    })
+    .catch(next);
 };
 // удаление фильма
 module.exports.deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   const UserIdMe = req.user._id;
-  return Movie.findByid(movieId)
+  Movie.findById(movieId)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Фильм не найден');
@@ -66,5 +68,6 @@ module.exports.deleteMovie = (req, res, next) => {
       } else {
         next(new ForbiddenDataError('У Вас нет прав на удаление данного фильма'));
       }
-    });
+    })
+    .catch(next);
 };

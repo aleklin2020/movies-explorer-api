@@ -5,7 +5,6 @@ const userModel = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    default: 'Алексей',
     minlength: 2,
     maxlength: 30,
   },
