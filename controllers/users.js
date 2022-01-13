@@ -19,18 +19,19 @@ module.exports.postUserNew = (req, res, next) => {
         throw new IncorrectDataError('Передан некорректный e-mail');
       }
       return User.create({ name, email, password: hash })
-        .then((user) => { return res.send({ message: user }); })
+        .then((user) => res.send({ name: user.name, email: user.email, id: user._id }))
         .catch((err) => {
           if (err.name === 'ValidationError') {
             next(new IncorrectDataError('Передан некорректный e-mail'));
           }
-          if (err.name === 'MongoServerError' && err.code === 11000) {
+          if (err.code === 11000) {
             next(new IncorrectEmail('Пользователь с таким e-mail уже существует'));
           } else {
             next(err);
           }
         });
-    });
+    })
+    .catch(next);
 };
 
 // аутентификация пользователя
@@ -73,7 +74,8 @@ module.exports.getUserMe = (req, res, next) => {
       } else {
         next(err);
       }
-    });
+    })
+    .catch(next);
 };
 // Обновление информаций о пользователи
 module.exports.patchUserMe = (req, res, next) => {
@@ -94,8 +96,11 @@ module.exports.patchUserMe = (req, res, next) => {
       }
       if (err.name === 'CastError') {
         next(new IncorrectDataError('Передан некорректный id пользователя'));
+      } if (err.code === 11000) {
+        next(new IncorrectEmail('Данный email уже используеться'));
       } else {
         next(err);
       }
-    });
+    })
+    .catch(next);
 };

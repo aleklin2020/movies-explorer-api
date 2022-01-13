@@ -4,7 +4,7 @@
   "description": "api",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon app.js",
     "lint": "npx eslint .",
     "dev": "nodemon app.js"
   },
@@ -24,10 +24,10 @@
     "body-parser": "^1.19.1",
     "celebrate": "^15.0.0",
     "dotenv": "^10.0.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
     "express": "^4.17.2",
+    "express-rate-limit": "^6.1.0",
     "express-winston": "^4.2.0",
+    "helmet": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.4",
     "validator": "^13.7.0",
@@ -35,6 +35,8 @@
   },
   "devDependencies": {
     "eslint": "^8.6.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
   }
 }
